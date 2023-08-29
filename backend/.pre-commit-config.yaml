@@ -5,6 +5,7 @@ exclude: |
         frontend/.*\.d\.ts|
         .*/versions/.*\.py
     )$
+
 repos:
   - repo: https://github.com/psf/black
     rev: 23.7.0
