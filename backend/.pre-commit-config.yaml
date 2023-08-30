@@ -2,10 +2,8 @@
 # See https://pre-commit.com/hooks.html for more hooks
 exclude: |
     (?x)^(
-        frontend/.*\.d\.ts|
-        .*/versions/.*\.py
+        frontend/.*  # Exclude all files and subdirectories under the "frontend" directory
     )$
-
 repos:
   - repo: https://github.com/psf/black
     rev: 23.7.0
