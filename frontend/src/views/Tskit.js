@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import 'assets/css/index.css';
-
+import Papa from 'papaparse';
 import {
   Badge,
   Button,
@@ -14,6 +14,23 @@ import {
 } from "react-bootstrap";
 
 function Tskit() {
+
+  const [csvData, setCsvData] = useState(null); // State to store parsed CSV data
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Use PapaParse to parse the CSV data
+      Papa.parse(file, {
+        complete: (result) => {
+          console.log('Parsed CSV Data:', result.data); // Print parsed CSV data
+          setCsvData(result.data); // Store the parsed data in state
+        },
+        header: true, // Assuming the first row is headers
+      });
+    }
+  };
+
   return (
     <>
       <Container fluid>
@@ -42,13 +59,15 @@ function Tskit() {
                     <Form.Control
                       type="file"
                       className="custom-file-upload "
-                      // onChange={handleFileChange}
+                      onChange={handleFileChange} // Handle file change
+
                     />
                   </Form.Group>
                   <Button
                     className="btn-fill pull-right mt-5"
                     type="submit"
                     variant="info"
+                    onClick={(e) => e.preventDefault()} 
                   >
                   Save and upload
                   </Button>
@@ -92,6 +111,8 @@ function Tskit() {
                 The data should consists of columns/features with time, and it should only have two columns: 'x' representing time and 'y' representing prediction values.
                 </p>
               </Card.Body>
+              {/* <>This is the data</>
+              <div> {JSON.stringify(csvData)}</div> */}
               <hr></hr>
 
 
