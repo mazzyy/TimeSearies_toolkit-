@@ -1,7 +1,7 @@
 # to run the file  uvicorn main:app --reload
 import pandas as pd
 import numpy as np
-from dataProcessor.DataProcessor import DataProcessor
+# from dataProcessor.DataProcessor import DataProcessor
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
@@ -29,9 +29,9 @@ app.add_middleware(
 @app.post("/test2")
 async def read_data1(request: Request):
     data = await request.json()
+    
     # print(data)
-    return "success"
-
+    return data
 
 @app.get("/")
 async def read_root():
