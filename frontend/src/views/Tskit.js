@@ -6,17 +6,20 @@ import {
   Col,
   Card,
   Form,
-  Table
+  Table,
+  Button
 } from "react-bootstrap";
 import axios from "axios";
-import { Button } from "antd";
+// import { Button } from "antd";
 import ChartistGraph from "react-chartist";
+import Plot from 'react-plotly.js';
+
 
 import "assets/css/index.css";
 const Tskit = () => {
   const [csvData, setCsvData] = useState(null); // State to store parsed CSV data
-  const [valuesArray, setValuesArray] = useState([]);
-  const [csvtime, setCsvTime] = useState([]);
+  const [csvArray, setcsvArray] = useState([]);
+  const [csvTime, setCsvTime] = useState([]);
 
    const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -30,7 +33,7 @@ const Tskit = () => {
 
           const csvTimeData = result.data.map(row => row[Object.keys(row)[0]]);
           
-          setValuesArray(extractedValues);
+          setcsvArray(extractedValues);
           setCsvTime(csvTimeData);
           console.log('Values Array:', extractedValues);
          
@@ -60,12 +63,25 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
   };
   React.useEffect(() => {
     console.log('Parsed CSV Data: csv ', csvData);
-    console.log('Values for graph:', valuesArray);
-    console.log('Values for graph:', csvtime);
-  }, [csvData,valuesArray,csvtime]);
-  
-  const minValue = valuesArray.length > 0 ? Math.min(...valuesArray) : null;
-  const maxValue = valuesArray.length > 0 ? Math.max(...valuesArray) : null;
+    console.log('Csv Array:', csvArray);
+    console.log('Csv Time:', csvTime);
+  }, [csvData,csvArray,csvTime]);
+
+  const plotData = [
+    {
+      x: csvTime,
+      y: csvArray,
+      type: 'scatter',
+      mode: 'lines+markers',
+      marker: { color: 'blue' }, // Customize marker color
+      line: { shape: 'linear' }, // Use a linear line shape
+    },
+  ];
+  const layout = {
+    title: 'Line Plot with Time on X-axis',
+    xaxis: { title: 'Time' },
+    yaxis: { title: 'Integers' },
+  };
 
   return (
     <>
@@ -106,8 +122,10 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
                           className="btn-fill pull-right mt-5 btn-primary"
                           type="submit"
                           variant="info"
-                          onClick={handleSubmit}
-                        >
+                          onClick={(e) => {
+                            handleSubmit();
+                            e.preventDefault();
+                          }}                        >
                           upload file
                         </Button>
                       </Form>
@@ -197,13 +215,15 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
               </Card.Header>
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
-                  <ChartistGraph
+
+                <Plot data={plotData} layout={layout} />
+                  {/* <ChartistGraph
                     data={{
-                      labels: csvtime,
+                      labels: csvTime,
                     
                       series: [
-                        // valuesArray
-                        valuesArray
+                        // csvArray
+                        csvArray
                         
                       ],
                     }}
@@ -236,7 +256,7 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
                         },
                       ],
                     ]}
-                  />
+                  /> */}
                 </div>
               </Card.Body>
               <Card.Footer>

@@ -1,4 +1,5 @@
 # to run the file  uvicorn main:app --reload
+# Note you should first cd into src folder
 import pandas as pd
 import numpy as np
 # from dataProcessor.DataProcessor import DataProcessor
