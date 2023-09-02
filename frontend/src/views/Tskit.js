@@ -216,7 +216,7 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
 
-                <Plot data={plotData} layout={layout} />
+                <Plot data={plotData} layout={layout}  />
                   {/* <ChartistGraph
                     data={{
                       labels: csvTime,
