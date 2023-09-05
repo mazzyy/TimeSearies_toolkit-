@@ -16,6 +16,8 @@ import Plot from 'react-plotly.js';
 
 
 import "assets/css/index.css";
+
+let myData = {}
 const Tskit = () => {
   const [csvData, setCsvData] = useState(null); // State to store parsed CSV data
   const [csvArray, setcsvArray] = useState([]);
@@ -26,34 +28,36 @@ const Tskit = () => {
     if (file) {
       Papa.parse(file, {
         complete: (result) => {
-          console.log('Parsed CSV Data:', result.data);
-          setCsvData(result.data);
-         // Extract values from the first column as y and create the array
-          const extractedValues = result.data.map(row => row[Object.keys(row)[1]]);
+          console.log('Parsed CSV Data:', result);
+          myData = result
+          setCsvData(result);
+        //  // Extract values from the first column as y and create the array
+        //   const extractedValues = result.data.map(row => row[Object.keys(row)[1]]);
 
-          const csvTimeData = result.data.map(row => row[Object.keys(row)[0]]);
+        //   const csvTimeData = result.data.map(row => row[Object.keys(row)[0]]);
           
-          setcsvArray(extractedValues);
-          setCsvTime(csvTimeData);
-          console.log('Values Array:', extractedValues);
+        //   setcsvArray(extractedValues);
+        //   setCsvTime(csvTimeData);
+        //   console.log('Values Array:', extractedValues);
          
         },
         header: true,
       });
     }
   };
-const dummy = {data: [[1,2,3],[4,5,6]]}
+  const dataToSend = myData.data;
+// const dummy = {data: [[1,2,3],[4,5,6]]}
   const handleSubmit = () => {
     const url = "http://127.0.0.1:8000/test2";
     axios
       .post(url, {
-        data: csvData,
+        data: dataToSend,
         headers: { "Access-Control-Allow-Origin": "*" },
       })
       .then((response) => {
+        console.log('csvData:', dataToSend);
         // Handle the response as needed
         console.log("Response:", response);
-
         // Update the state to hide the submit link and show the new link
       })
       .catch((error) => {
@@ -61,27 +65,23 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
         console.error("Error:", error);
       });
   };
-  React.useEffect(() => {
-    console.log('Parsed CSV Data: csv ', csvData);
-    console.log('Csv Array:', csvArray);
-    console.log('Csv Time:', csvTime);
-  }, [csvData,csvArray,csvTime]);
 
-  const plotData = [
-    {
-      x: csvTime,
-      y: csvArray,
-      type: 'scatter',
-      mode: 'lines+markers',
-      marker: { color: 'blue' }, // Customize marker color
-      line: { shape: 'linear' }, // Use a linear line shape
-    },
-  ];
-  const layout = {
-    title: 'Line Plot with Time on X-axis',
-    xaxis: { title: 'Time' },
-    yaxis: { title: 'Integers' },
-  };
+
+  // const plotData = [
+  //   {
+  //     x: csvTime,
+  //     y: csvArray,
+  //     type: 'scatter',
+  //     mode: 'lines+markers',
+  //     marker: { color: 'blue' }, // Customize marker color
+  //     line: { shape: 'linear' }, // Use a linear line shape
+  //   },
+  // ];
+  // const layout = {
+  //   title: 'Line Plot with Time on X-axis',
+  //   xaxis: { title: 'Time' },
+  //   yaxis: { title: 'Integers' },
+  // };
 
   return (
     <>
@@ -216,7 +216,7 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
 
-                <Plot data={plotData} layout={layout} />
+                {/* <Plot data={plotData} layout={layout} /> */}
                   {/* <ChartistGraph
                     data={{
                       labels: csvTime,

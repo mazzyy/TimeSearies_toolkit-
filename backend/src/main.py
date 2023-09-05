@@ -2,6 +2,7 @@
 # Note you should first cd into src folder
 import pandas as pd
 import numpy as np
+
 # from dataProcessor.DataProcessor import DataProcessor
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,9 +31,10 @@ app.add_middleware(
 @app.post("/test2")
 async def read_data1(request: Request):
     data = await request.json()
-    
+
     # print(data)
     return data
+
 
 @app.get("/")
 async def read_root():
