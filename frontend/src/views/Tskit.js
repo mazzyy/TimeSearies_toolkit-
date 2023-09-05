@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Papa from 'papaparse';
+import Tsstock from "./Tsstock";
+import Tsstock2 from "./Tsstock2";
 import {
   Container,
   Row,
@@ -16,10 +18,12 @@ import Plot from 'react-plotly.js';
 
 
 import "assets/css/index.css";
+
 const Tskit = () => {
   const [csvData, setCsvData] = useState(null); // State to store parsed CSV data
   const [csvArray, setcsvArray] = useState([]);
   const [csvTime, setCsvTime] = useState([]);
+  let data=[]
 
    const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -27,22 +31,24 @@ const Tskit = () => {
       Papa.parse(file, {
         complete: (result) => {
           console.log('Parsed CSV Data:', result.data);
-          setCsvData(result.data);
-         // Extract values from the first column as y and create the array
-          const extractedValues = result.data.map(row => row[Object.keys(row)[1]]);
-
-          const csvTimeData = result.data.map(row => row[Object.keys(row)[0]]);
-          
-          setcsvArray(extractedValues);
-          setCsvTime(csvTimeData);
-          console.log('Values Array:', extractedValues);
+    
+          // Convert 'x' column values to date objects and 'y' column values to floats
+          // const convertedData = result.data.slice(1).map(row => ({
+          //   x: new Date(row.x),
+          //   y: parseFloat(row.y)
+          // }));
          
+          // You can now use 'convertedData' which contains the desired data format
+         
+          // console.log('Converted Data:', result.data);
+          setCsvData(result.data)
         },
         header: true,
       });
     }
+    
   };
-const dummy = {data: [[1,2,3],[4,5,6]]}
+
   const handleSubmit = () => {
     const url = "http://127.0.0.1:8000/test2";
     axios
@@ -62,26 +68,11 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
       });
   };
   React.useEffect(() => {
-    console.log('Parsed CSV Data: csv ', csvData);
-    console.log('Csv Array:', csvArray);
-    console.log('Csv Time:', csvTime);
+    // console.log('Parsed CSV Data: csv ', csvData);
+    // console.log('Csv Array:', csvArray);
+    // console.log('Csv Time:', csvTime);
   }, [csvData,csvArray,csvTime]);
 
-  const plotData = [
-    {
-      x: csvTime,
-      y: csvArray,
-      type: 'scatter',
-      mode: 'lines+markers',
-      marker: { color: 'blue' }, // Customize marker color
-      line: { shape: 'linear' }, // Use a linear line shape
-    },
-  ];
-  const layout = {
-    title: 'Line Plot with Time on X-axis',
-    xaxis: { title: 'Time' },
-    yaxis: { title: 'Integers' },
-  };
 
   return (
     <>
@@ -216,47 +207,11 @@ const dummy = {data: [[1,2,3],[4,5,6]]}
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
 
-                <Plot data={plotData} layout={layout} />
-                  {/* <ChartistGraph
-                    data={{
-                      labels: csvTime,
-                    
-                      series: [
-                        // csvArray
-                        csvArray
-                        
-                      ],
-                    }}
-                    type="Line"
-                    options={{
-                      low: minValue,
-                      high: maxValue,
-                      showArea: false,
-                      height: "245px",
-                      axisX: {
-                        showGrid: false,
-                      },
-                      lineSmooth: true,
-                      showLine: true,
-                      showPoint: true,
-                      fullWidth: true,
-                      chartPadding: {
-                        right: 50,
-                      },
-                    }}
-                    responsiveOptions={[
-                      [
-                        "screen and (max-width: 640px)",
-                        {
-                          axisX: {
-                            labelInterpolationFnc: function (value) {
-                              return value[0];
-                            },
-                          },
-                        },
-                      ],
-                    ]}
-                  /> */}
+            
+          {/* <Timeseries data={csvData} />  */}
+          <Tsstock data={csvData} />
+       
+    
                 </div>
               </Card.Body>
               <Card.Footer>
