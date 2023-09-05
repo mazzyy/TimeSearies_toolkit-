@@ -207,55 +207,11 @@ const Tskit = () => {
               <Card.Body>
                 <div className="ct-chart" id="chartHours">
 
-<<<<<<< HEAD
             
           {/* <Timeseries data={csvData} />  */}
           <Tsstock data={csvData} />
        
     
-=======
-                <Plot data={plotData} layout={layout}  />
-                  {/* <ChartistGraph
-                    data={{
-                      labels: csvTime,
-                    
-                      series: [
-                        // csvArray
-                        csvArray
-                        
-                      ],
-                    }}
-                    type="Line"
-                    options={{
-                      low: minValue,
-                      high: maxValue,
-                      showArea: false,
-                      height: "245px",
-                      axisX: {
-                        showGrid: false,
-                      },
-                      lineSmooth: true,
-                      showLine: true,
-                      showPoint: true,
-                      fullWidth: true,
-                      chartPadding: {
-                        right: 50,
-                      },
-                    }}
-                    responsiveOptions={[
-                      [
-                        "screen and (max-width: 640px)",
-                        {
-                          axisX: {
-                            labelInterpolationFnc: function (value) {
-                              return value[0];
-                            },
-                          },
-                        },
-                      ],
-                    ]}
-                  /> */}
->>>>>>> ee1db1f3354fe16eb55ac071dec46e612377616f
                 </div>
               </Card.Body>
               <Card.Footer>
