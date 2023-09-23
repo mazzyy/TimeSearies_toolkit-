@@ -100,4 +100,8 @@ light-bootstrap-dashboard-react
         ├── Typography.js
         ├── Upgrade.js
         └── UserProfile.js
-`
+
+
+#run docker using commnad
+it trainser running contaier port 3000 to local port 5000
+Docker run -p 5000:3000 dd64c7b285e2

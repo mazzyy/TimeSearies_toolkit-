@@ -77,11 +77,12 @@ class Tsstock extends Component {
         },
         data: [{
           name: "Value",
-          type: "splineArea",
+          type: "scatter", // Use "scatter" type to display only data points without lines
+          markerType: "circle", // Set the marker type to "circle"
           color: "#3576a8",
           yValueFormatString: "#,###.##",
           xValueFormatString: "MMM DD YYYY",
-          dataPoints : this.state.dataPoints
+          dataPoints: this.state.dataPoints
 		 
         }]
       }],

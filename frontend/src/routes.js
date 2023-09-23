@@ -6,7 +6,7 @@ import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
-import Tskit from "views/Tskit.js";
+import Upload from "views/Upload.js";
 
 const dashboardRoutes = [
   {
@@ -20,7 +20,7 @@ const dashboardRoutes = [
     path: "/user",
     name: "Tool Kit",
     icon: "nc-icon nc-circle-09",
-    component: Tskit,
+    component: Upload,
     layout: "/admin"
   },
   {
