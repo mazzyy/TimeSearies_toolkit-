@@ -9,7 +9,8 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Fetch data from the FastAPI endpoint
-response = requests.get("http://127.0.0.1:8000/test2")
+response = requests.get("http://localhost:3000//test2")
+
 
 def determine_date_format(date_str):
     # Try 'mm/dd/yyyy' format first

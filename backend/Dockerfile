@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 
 # Define the command to start your Python backend
-CMD ["python", "src/app.py"]
+CMD [ "sh", "-c", "uvicorn src.main:app --reload --port=8000 --host=0.0.0.0" ]

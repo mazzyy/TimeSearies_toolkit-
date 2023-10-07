@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Expose the port on which your React app will run (usually 80)
-EXPOSE 80
+EXPOSE 3000
 
 # Serve the production-ready React app
 CMD ["npx", "serve", "-s", "build"]

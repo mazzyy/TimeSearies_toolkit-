@@ -9,9 +9,9 @@ services:
     build:
       context: ./frontend
     ports:
-      - "80:80"
-  # streamlit:
-  #   build:
-  #     context: ./streamlit
-  #   ports:
-  #     - "8501:8501"
+      - "3000:3000"
+  streamlit:
+    build:
+      context: ./streamlit
+    ports:
+      - "8501:8501"

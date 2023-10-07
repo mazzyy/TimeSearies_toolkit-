@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8501
 
 # Define the command to start your Streamlit app
-CMD ["streamlit", "run", "streamlit.py"]
+CMD ["streamlit", "run", "streamlit_app.py"]
